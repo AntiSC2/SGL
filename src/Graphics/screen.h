@@ -15,6 +15,9 @@ class Screen {
 
       void clear();
       void update();
+      SDL_Window* getWindow();
+      int getHeight();
+      int getWidth();
 
    private:
 

@@ -21,7 +21,7 @@ Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_
 //The destructor quits SDL and it's subsystems
 Game::~Game() {
    delete Shader::BASIC_RENDER;
-   for(int i = 0; i < cubes.size(); i++){
+   for(int i = 0; i < cubes.size(); i++) {
       delete cubes[i];
    }
    IMG_Quit();
@@ -60,6 +60,7 @@ void Game::run() {
          update();
          accumulator -= dt;
          updates++;
+
       }
       //Render the scene
       render();
@@ -106,14 +107,20 @@ void Game::loadResources(const char* data) {
 void Game::update() {
    input.update();
    player.update();
+
+
+   if(Input::mouse_grabbed()) {
+      SDL_WarpMouseInWindow(_screen.getWindow(), _screen.getWidth() / 2, _screen.getHeight() / 2);
+   }
+
 }
 //Clears and render the new scene
 void Game::render() {
    _screen.clear();
 
    player.render();
-   for(int x = 0; x < cubes.size(); x++){
-      for(int y = 0; y < cubes.size(); y++){
+   for(int x = 0; x < cubes.size(); x++) {
+      for(int y = 0; y < cubes.size(); y++) {
          cubes[x]->render(glm::vec3(x, y, 0.0f));
       }
    }

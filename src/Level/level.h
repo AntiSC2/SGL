@@ -1,7 +1,7 @@
 #ifndef LEVEL_H_INCLUDED
 #define LEVEL_H_INCLUDED
 
-class Level{
+class Level {
    public:
       Level(const char* levelData);
       void render();

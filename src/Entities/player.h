@@ -13,7 +13,7 @@ class Player : public Entity {
       void render();
    private:
       glm::vec3 rotation;
-      float mouse_sensitivity = 0.1f;
+      float mouse_sensitivity = 0.2f;
       float speed = 0.05;
 };
 

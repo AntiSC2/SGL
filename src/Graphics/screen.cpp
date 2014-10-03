@@ -30,9 +30,7 @@ void Screen::update() {
    while ((err = glGetError()) != GL_NO_ERROR) {
       //printf("Error while rendering! GLEW ERROR: %s\n", glGetString(err));
    }
-   if(Input::mouse_grabbed()){
-      SDL_WarpMouseInWindow(_window, _width/2, _height/2);
-   }
+
    SDL_GL_SwapWindow(_window);
 }
 
@@ -65,5 +63,17 @@ void Screen::initGL() {
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
    }
+}
+
+SDL_Window* Screen::getWindow() {
+   return _window;
+}
+
+int Screen::getHeight(){
+   return _height;
+}
+
+int Screen::getWidth(){
+   return _width;
 }
 
