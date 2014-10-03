@@ -1,16 +1,29 @@
 #include "game.h"
 //The constructor passes the data to the screen
-Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(1.0f, 1.0f, 3.0f)) {
-   cube = new Cube;
-   cube2 = new Cube;
-   cube3 = new Cube;
+Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(1.0f, 2.0f, 0.0f)) {
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
 }
 //The destructor quits SDL and it's subsystems
 Game::~Game() {
    delete Shader::BASIC_RENDER;
-   delete cube;
-   delete cube2;
-   delete cube3;
+   for(int i = 0; i < cubes.size(); i++){
+      delete cubes[i];
+   }
    IMG_Quit();
    SDL_Quit();
    // NOTE (Anti#9#): Remember to free the memory from the managers later ...
@@ -47,10 +60,9 @@ void Game::run() {
          update();
          accumulator -= dt;
          updates++;
-         render();
       }
       //Render the scene
-
+      render();
       frames++;
       //If one second has passed, output the fps and updates
       if(SDL_GetTicks() - timer >= 1000) {
@@ -99,11 +111,12 @@ void Game::update() {
 void Game::render() {
    _screen.clear();
 
-
    player.render();
-   cube->render(glm::vec3(0.0f, 0.0f, 0.0f));
-   cube2->render(glm::vec3(1.0f, 1.0f, 0.0f));
-   cube3->render(glm::vec3(0.0f, 0.0f, 1.0f));
+   for(int x = 0; x < cubes.size(); x++){
+      for(int y = 0; y < cubes.size(); y++){
+         cubes[x]->render(glm::vec3(x, y, 0.0f));
+      }
+   }
 
    _screen.update();
 }
@@ -116,7 +129,7 @@ void Game::initShaders() {
    Shader::BASIC_RENDER->linkShaders();
    Shader::BASIC_RENDER->use();
    glm::mat4 proj;
-   proj = glm::perspective(100.0f, 1280.0f / 720.0f, 0.1f, 10.0f);
+   proj = glm::perspective(80.0f, 1280.0f / 720.0f, 0.1f, 10.0f);
    Shader::BASIC_RENDER->setProjectionMatrix(proj);
 }
 

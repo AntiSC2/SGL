@@ -14,6 +14,7 @@
 #include "Graphics/cube.h"
 #include "input.h"
 #include "Entities/player.h"
+#include <vector>
 
 
 
@@ -38,9 +39,7 @@ class Game {
       void initShaders();
       //The window is handled by it's own class
       Screen _screen;
-      Cube *cube;
-      Cube *cube2;
-      Cube *cube3;
+      std::vector<Cube*> cubes;
       Input input;
       Player player;
 };

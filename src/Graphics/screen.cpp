@@ -30,11 +30,9 @@ void Screen::update() {
    while ((err = glGetError()) != GL_NO_ERROR) {
       //printf("Error while rendering! GLEW ERROR: %s\n", glGetString(err));
    }
-
-   if(Input::mouse_grabbed()) {
-      SDL_WarpMouseInWindow(_window ,1280/2, 720/2);
+   if(Input::mouse_grabbed()){
+      SDL_WarpMouseInWindow(_window, _width/2, _height/2);
    }
-
    SDL_GL_SwapWindow(_window);
 }
 

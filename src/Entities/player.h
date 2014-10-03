@@ -4,7 +4,6 @@
 #include "Graphics/shader.h"
 #include "input.h"
 #include "Utils/Math3D.h"
-#include <math.h>
 
 class Player : public Entity {
    public:

@@ -2,7 +2,6 @@
 
 Player::Player(glm::vec3 position) {
    this->position = position;
-   this->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
 void Player::render() {
@@ -14,32 +13,26 @@ void Player::render() {
 
 void Player::update() {
    if (Input::key_pressed(SDL_SCANCODE_W)) {
-      float xa = cos(Math::to_radians(rotation.y+90.0f)) * speed;
-      float ya = -sin(Math::to_radians(rotation.y+90.0f)) * speed;
-      //float za = -sin(Math::to_radians(rotation.x)) * speed;
-
+      float xa = cos(Math::to_radians(rotation.y + 90.0f)) * speed;
+      float ya = -sin(Math::to_radians(rotation.y + 90.0f)) * speed;
       position.x += xa;
       position.y += ya;
-      //position.z += za;
    }
    if (Input::key_pressed(SDL_SCANCODE_S)) {
-      float xa = -cos(Math::to_radians(rotation.y+90.0f)) * speed;
-      float ya = sin(Math::to_radians(rotation.y+90.0f)) * speed;
-
+      float xa = -cos(Math::to_radians(rotation.y + 90.0f)) * speed;
+      float ya = sin(Math::to_radians(rotation.y + 90.0f)) * speed;
       position.x += xa;
       position.y += ya;
    }
    if (Input::key_pressed(SDL_SCANCODE_A)) {
       float xa = cos(Math::to_radians(rotation.y)) * speed;
       float ya = -sin(Math::to_radians(rotation.y)) * speed;
-
       position.x += xa;
       position.y += ya;
    }
    if (Input::key_pressed(SDL_SCANCODE_D)) {
       float xa = -cos(Math::to_radians(rotation.y)) * speed;
       float ya = sin(Math::to_radians(rotation.y)) * speed;
-
       position.x += xa;
       position.y += ya;
    }
@@ -53,6 +46,6 @@ void Player::update() {
       rotation.x -= Input::get_DY() * mouse_sensitivity;
       rotation.y -= Input::get_DX() * mouse_sensitivity;
    }
-   if (rotation.y < -90.0f) rotation.y = -90.0f;
-   if (rotation.y >  90.0f) rotation.y =  90.0f;
+   if (rotation.x < -175.0f) rotation.x = -175.0f;
+   if (rotation.x >  -5.0f) rotation.x =  -5.0f;
 }
