@@ -3,10 +3,11 @@
 #include <map>
 #include "Utils\vertexarrays.h"
 #include <stdio.h>
+#include "texturemanager.h"
 
 class RM {
    public:
-
+      static TextureManager *TextureCache;
    private:
       RM() {}
 };

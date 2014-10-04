@@ -40,7 +40,6 @@ void Texture::loadTexture(const char *filePath) {
    //Create mipmap for the texture
    glGenerateMipmap(GL_TEXTURE_2D);
    //Clean up
-   printf("ID TEXTURE:%u ", _ID);
    SDL_FreeSurface(surface);
    glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -55,4 +54,8 @@ void Texture::use() {
 void Texture::unuse() {
    glBindTexture(GL_TEXTURE_2D, 0);
    currentlyBound = 0;
+}
+
+const GLuint Texture::returnID() {
+   return (const GLuint)_ID;
 }

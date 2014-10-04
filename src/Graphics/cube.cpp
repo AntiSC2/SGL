@@ -80,15 +80,13 @@ Cube::Cube() {
       1.0f, 0.0f,
       0.0f, 0.0f
    };
-
    vao = new VertexArrays(vertices, indices, tcs, 6 * 4 * 3, 6 * 6);
-   TEX = new Texture;
-   TEX->loadTexture("resources/textures/tex.png");
+   TEX = RM::TextureCache->findTexture("resources/textures/tex.png");
 }
 
 Cube::~Cube() {
    delete vao;
-   delete TEX;
+   TEX = nullptr;
 }
 
 void Cube::render(glm::vec3 position) {

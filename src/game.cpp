@@ -1,22 +1,7 @@
 #include "game.h"
 //The constructor passes the data to the screen
 Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(1.0f, 2.0f, 0.0f)) {
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
+
 }
 //The destructor quits SDL and it's subsystems
 Game::~Game() {
@@ -24,6 +9,7 @@ Game::~Game() {
    for(int i = 0; i < cubes.size(); i++) {
       delete cubes[i];
    }
+   delete RM::TextureCache;
    IMG_Quit();
    SDL_Quit();
    // NOTE (Anti#9#): Remember to free the memory from the managers later ...
@@ -33,6 +19,23 @@ Game::~Game() {
 //Handles the game
 void Game::run() {
    initShaders();
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+   cubes.push_back(new Cube);
+
    //How much to delay the update function in milliseconds, 16 milliseconds ~ 60 updates per second
    const double dt = 16.66666666666;
    //Varibles to keep track of time
@@ -75,29 +78,40 @@ void Game::run() {
    }
 }
 
+void Game::initSystems() {
+   //The file to read data from
+   //If it could not open the file don't initialize the program
+   if(SDL_Init(SDL_INIT_VIDEO) != 0) {
+      //Prints an error if SDL failed to initialize!
+      printf("Could not initialize SDL! SDL Error: %s", SDL_GetError());
+
+   } else if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+      //Prints an error if SDL_image failed to initialize!
+      printf("SDL_image could not initialize! SDL Error: %s", IMG_GetError());
+   }
+}
+
 //Load resources, The data file must be in this order: Shaders, textures
 void Game::loadResources(const char* data) {
-   //The file to read data from
-   std::ifstream fin(data);
-   //If it could not open the file don't initialize the program
-   if(!fin.is_open()) {
-      printf("Could not open %s!\n", data);
-   } else {
-      if(SDL_Init(SDL_INIT_VIDEO) != 0) {
-         //Prints an error if SDL failed to initialize!
-         printf("Could not initialize SDL! SDL Error: %s", SDL_GetError());
-
-      } else if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
-         //Prints an error if SDL_image failed to initialize!
-         printf("SDL_image could not initialize! SDL Error: %s", IMG_GetError());
-
+   //Loads the files here
+   bool textures = false;
+   bool levels = false;
+   std::string fileData = FileUtils::read_file(data);
+   std::string fileLine;
+   for(int i = 0; i < fileData.size(); i++) {
+      if(fileData[i] != '\n') {
+         fileLine += fileData[i];
       } else {
-         //Loads the files here
-         std::string fileData;
-         std::string help;
-         std::getline(fin, fileData);
-
-         printf("%s\n", fileData.c_str());
+         if(fileLine == "Textures") {
+            textures = true;
+            levels = false;
+         } else if(fileLine == "Levels") {
+            textures = false;
+            levels = true;
+         } else if(textures == true) {
+            RM::TextureCache->findTexture(fileLine);
+         }
+         fileLine = "";
       }
    }
 }

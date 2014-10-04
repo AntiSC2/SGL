@@ -69,11 +69,11 @@ SDL_Window* Screen::getWindow() {
    return _window;
 }
 
-int Screen::getHeight(){
+int Screen::getHeight() {
    return _height;
 }
 
-int Screen::getWidth(){
+int Screen::getWidth() {
    return _width;
 }
 

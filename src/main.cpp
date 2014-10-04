@@ -3,9 +3,10 @@
 
 int main(int argc, char **argv) {
    //Loads in the game resources
-   Game::loadResources("resources\\data\\Game.data");
+   Game::initSystems();
    //Creates the game class and window
    Game g("WHAT IS GOING ON???", 1280, 720);
+   Game::loadResources("resources\\data\\Game.data");
    //Temp code
    /*std::string fileData = "resources/shaders/Render.vert";
    Shader::BASIC_RENDER->compileShaders(fileData.c_str(), "resources/shaders/Render.frag");

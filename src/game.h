@@ -14,6 +14,8 @@
 #include "Graphics/cube.h"
 #include "input.h"
 #include "Entities/player.h"
+#include "Managers/resourcemanager.h"
+#include "Utils/fileutil.h"
 #include <vector>
 
 
@@ -28,6 +30,7 @@ class Game {
       ///Contains the gameloop and calls the other functions during runtime.
       void run();
       ///Loads in resources like textures, sound, shaders and other things needed.
+      static void initSystems();
       static void loadResources(const char *data);
 
    private:
