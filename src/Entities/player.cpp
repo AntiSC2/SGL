@@ -1,7 +1,9 @@
 #include "player.h"
 
 Player::Player(glm::vec3 position) {
-   this->position = position;
+   this->position.x = - position.x;
+   this->position.y = - position.y;
+   this->position.z = - position.z;
 }
 
 void Player::render() {
@@ -9,6 +11,7 @@ void Player::render() {
    vw_matrix *= glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0.0f, 0.0f, 1.0f));
    vw_matrix *= glm::translate(glm::mat4(1.0f), position);
    Shader::BASIC_RENDER->setViewMatrix(vw_matrix);
+   Shader::BASIC_RENDER->setCameraPos(position);
 }
 
 void Player::update() {
@@ -48,4 +51,12 @@ void Player::update() {
    }
    if (rotation.x < -175.0f) rotation.x = -175.0f;
    if (rotation.x >  -5.0f) rotation.x =  -5.0f;
+
+   if((position.x > -1 || position.x < -17) || (position.y > -1 || position.y < -17) || (position.z > -0.5)){
+      fallingSpeed += 0.000982f;
+   } else {
+      fallingSpeed = 0;
+      position.z = -2.0f;
+   }
+   position.z += fallingSpeed;
 }

@@ -90,7 +90,7 @@ void Shader::unuse() {
 GLuint Shader::getUniformLocation(const char* uniformName) {
    GLuint location = glGetUniformLocation(_programID, uniformName);
    if(location == GL_INVALID_INDEX) {
-      printf("Uniform %s was not found in shader!", uniformName);
+     //printf("Uniform %s was not found in shader!", uniformName);
    }
    return location;
 }
@@ -158,6 +158,17 @@ void Shader::setViewMatrix(glm::mat4 trans) {
 void Shader::setProjectionMatrix(glm::mat4 trans) {
    GLuint uniProjection = getUniformLocation("projection");
    glUniformMatrix4fv(uniProjection, 1, GL_FALSE, glm::value_ptr(trans));
+}
+
+
+void Shader::setCameraPos(glm::vec3 pos) {
+   GLuint uniCamera = getUniformLocation("camera_pos");
+   glUniform3f(uniCamera, -pos.x, -pos.y, -pos.z);
+}
+
+void Shader::setModelPos(glm::vec3 pos) {
+   GLuint uniModelpos = getUniformLocation("model_position");
+   glUniform3f(uniModelpos, pos.x, pos.y, pos.z);
 }
 
 

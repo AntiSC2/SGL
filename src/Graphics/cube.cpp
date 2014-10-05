@@ -14,7 +14,7 @@ Cube::~Cube() {
 void Cube::render(glm::vec3 position) {
    glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
    Shader::BASIC_RENDER->setModelMatrix(model);
-
+   Shader::BASIC_RENDER->setModelPos(position);
    TEX->use();
    vao->render();
 }

@@ -2,7 +2,16 @@
 *.slo
 *.lo
 *.o
-*.obj
+
+# Some image formats
+*.jpeg
+*.jpg
+*.bmp
+
+#Project files
+*.cbp
+*.depend
+*.layout
 
 # Compiled Dynamic libraries
 *.so

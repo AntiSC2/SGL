@@ -15,6 +15,7 @@ private:
    glm::vec3 rotation;
    float mouse_sensitivity = 0.2f;
    float speed = 0.05;
+   float fallingSpeed;
 };
 
 #endif // PLAYER_H_INCLUDED

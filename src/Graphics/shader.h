@@ -33,6 +33,8 @@ public:
    void setModelMatrix(glm::mat4 trans);
    void setViewMatrix(glm::mat4 trans);
    void setProjectionMatrix(glm::mat4 trans);
+   void setCameraPos(glm::vec3 pos);
+   void setModelPos(glm::vec3 pos);
 
 private:
 

@@ -1,6 +1,6 @@
 #include "game.h"
 //The constructor passes the data to the screen
-Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(1.0f, 2.0f, 0.0f)) {
+Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(5.0f, 5.0f, 2.0f)) {
 
 }
 //The destructor quits SDL and it's subsystems
@@ -71,7 +71,7 @@ void Game::run() {
       frames++;
       //If one second has passed, output the fps and updates
       if(SDL_GetTicks() - timer >= 1000) {
-         printf("\nUpdates: %u\nFrames: %u", updates, frames);
+         printf("\nUpdates: %u\nFrames: %u\nCamera position: x = %f, y = %f, z = %f", updates, frames, player.get_position().x, player.get_position().y, player.get_position().z);
          timer = SDL_GetTicks();
          frames = 0;
          updates = 0;
@@ -154,7 +154,7 @@ void Game::render() {
    {
       for(int y = 0; y < cubes.size(); y++)
       {
-         cubes[x]->render(glm::vec3(x, y, 0.0f));
+         cubes[x]->render(glm::vec3(x * 1.0 + 1, y * 1.0 + 1, 0.0f));
       }
    }
 
@@ -169,7 +169,7 @@ void Game::initShaders() {
    Shader::BASIC_RENDER->linkShaders();
    Shader::BASIC_RENDER->use();
    glm::mat4 proj;
-   proj = glm::perspective(80.0f, 1280.0f / 720.0f, 0.1f, 10.0f);
+   proj = glm::perspective(80.0f, 1280.0f / 720.0f, 0.1f, 1000.0f);
    Shader::BASIC_RENDER->setProjectionMatrix(proj);
 }
 
