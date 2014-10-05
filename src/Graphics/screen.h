@@ -9,24 +9,24 @@
 #include "input.h"
 ///Screen is a class that handles the window
 class Screen {
-   public:
-      Screen(const char *title, int width, int height);
-      ~Screen();
+public:
+   Screen(const char *title, int width, int height);
+   ~Screen();
 
-      void clear();
-      void update();
-      SDL_Window* getWindow();
-      int getHeight();
-      int getWidth();
+   void clear();
+   void update();
+   SDL_Window* getWindow();
+   int getHeight();
+   int getWidth();
 
-   private:
+private:
 
-      void initGL();
+   void initGL();
 
-      SDL_Window *_window;
-      const char *_title;
-      int _width;
-      int _height;
+   SDL_Window *_window;
+   const char *_title;
+   int _width;
+   int _height;
 };
 
 #endif // SCREEN_H_INCLUDED

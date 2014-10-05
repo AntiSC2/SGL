@@ -5,7 +5,8 @@ Screen::Screen(const char *title, int width, int height) : _title(title), _width
    //Creates the window and initializes OpenGL
    _window = SDL_CreateWindow(_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _width, _height, SDL_WINDOW_OPENGL);
 
-   if(_window == nullptr) {
+   if(_window == nullptr)
+   {
 
       printf("Could not create window! SDL Error: %s", SDL_GetError());
 
@@ -27,7 +28,8 @@ void Screen::clear() {
 
 void Screen::update() {
    GLenum err;
-   while ((err = glGetError()) != GL_NO_ERROR) {
+   while ((err = glGetError()) != GL_NO_ERROR)
+   {
       //printf("Error while rendering! GLEW ERROR: %s\n", glGetString(err));
    }
 
@@ -44,15 +46,19 @@ void Screen::initGL() {
    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 
-   if(SDL_GL_CreateContext(_window) == nullptr) {
+   if(SDL_GL_CreateContext(_window) == nullptr)
+   {
       printf("Could not create OpenGL context! SDL Error: %s", SDL_GetError());
    }
 
    GLenum err = glewInit();
 
-   if(err != GLEW_OK) {
+   if(err != GLEW_OK)
+   {
       printf("Could not initialize GLEW! GLEW ERROR: %s", glewGetErrorString(err));
-   } else {
+   }
+   else
+   {
 
       printf("OpenGL Version %s\n", glGetString(GL_VERSION));
 
@@ -60,7 +66,7 @@ void Screen::initGL() {
       glEnable (GL_BLEND);
       glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-      glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+      glClearColor(0.5f, 0.5f, 0.5f, 1.5f);
 
    }
 }

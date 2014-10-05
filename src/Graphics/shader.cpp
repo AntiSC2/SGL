@@ -1,7 +1,6 @@
 #include "shader.h"
 
-Shader::Shader() : _numAttributes(0), _programID(0), _vertID(0), _fragID(0)
-{
+Shader::Shader() : _numAttributes(0), _programID(0), _vertID(0), _fragID(0) {
 
 }
 
@@ -16,11 +15,13 @@ void Shader::compileShaders(const char* vertPath, const char* fragPath) {
 
    _programID = glCreateProgram();
    _vertID = glCreateShader(GL_VERTEX_SHADER);
-   if(_vertID == 0) {
+   if(_vertID == 0)
+   {
       printf("Vertex shader %s failed to be created!\n", vertPath);
    }
    _fragID = glCreateShader(GL_FRAGMENT_SHADER);
-   if(_fragID == 0) {
+   if(_fragID == 0)
+   {
       printf("Vertex shader %s failed to be created!\n", vertPath);
    }
 
@@ -42,8 +43,7 @@ void Shader::linkShaders() {
    GLint isLinked = 0;
    glGetProgramiv(_programID, GL_LINK_STATUS, (int *)&isLinked);
 
-   if (isLinked == GL_FALSE)
-   {
+   if (isLinked == GL_FALSE) {
       GLint maxLength = 0;
       glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &maxLength);
 
@@ -127,8 +127,7 @@ void Shader::compileShader(const char* filePath, GLuint id) {
    GLint success = 0;
    glGetShaderiv(id, GL_COMPILE_STATUS, &success);
 
-   if (success == GL_FALSE)
-   {
+   if (success == GL_FALSE) {
       GLint maxLength = 0;
       glGetShaderiv(id, GL_INFO_LOG_LENGTH, &maxLength);
 

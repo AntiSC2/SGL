@@ -10,14 +10,14 @@
 #include <string>
 
 class TextureManager {
-   public:
-      TextureManager();
-      ~TextureManager();
-      Texture* findTexture(std::string fileName);
-      void   removeTexture();
-   private:
-      std::map<std::string, Texture*> Textures;
-      Texture* addTexture(std::string fileName);
+public:
+   TextureManager();
+   ~TextureManager();
+   Texture* findTexture(std::string fileName);
+   void   removeTexture();
+private:
+   std::map<std::string, Texture*> Textures;
+   Texture* addTexture(std::string fileName);
 };
 
 #endif // TEXTUREMANAGER_H_INCLUDED

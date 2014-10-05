@@ -4,12 +4,14 @@
 #include "Utils\vertexarrays.h"
 #include <stdio.h>
 #include "texturemanager.h"
+#include "meshmanager.h"
 
 class RM {
-   public:
-      static TextureManager *TextureCache;
-   private:
-      RM() {}
+public:
+   static TextureManager *TextureCache;
+   static MeshManager *MeshCache;
+private:
+   RM() {}
 };
 
 

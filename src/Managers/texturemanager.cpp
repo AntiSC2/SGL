@@ -19,7 +19,8 @@ Texture* TextureManager::addTexture(std::string fileName) {
       it->second->loadTexture(fileName.c_str());
       printf("Created new Texture: %s\n", fileName.c_str());
       return it->second;
-   } else {
+   }
+   else {
       printf("Texture %s already existed\n", fileName.c_str());
       return it->second;
    }
@@ -30,7 +31,8 @@ Texture* TextureManager::findTexture(std::string fileName) {
    if(it != Textures.end()) {
       printf("Loaded cached texture\n");
       return it->second;
-   } else {
+   }
+   else {
       printf("Creating new texture: %s\n", fileName.c_str());
       return addTexture(fileName);
    }

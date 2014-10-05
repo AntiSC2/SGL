@@ -8,12 +8,12 @@
 #include <GL/glew.h>
 
 class Sprite {
-   public:
-      Sprite();
-      void render();
-   private:
-      VertexArrays *vao;
-      Texture *TEX;
+public:
+   Sprite();
+   void render();
+private:
+   VertexArrays *vao;
+   Texture *TEX;
 };
 
 

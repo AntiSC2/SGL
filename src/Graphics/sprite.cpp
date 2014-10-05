@@ -3,7 +3,8 @@
 Sprite::Sprite() {
    const float SIZE = 0.8f;
 
-   GLfloat vertices[6 * 4 * 3] = {
+   GLfloat vertices[6 * 4 * 3] =
+   {
       // Front
       -SIZE / 2.0f, -SIZE / 2.0f,  SIZE / 2.0f, // 0
       SIZE / 2.0f, -SIZE / 2.0f,  SIZE / 2.0f, // 1
@@ -41,12 +42,14 @@ Sprite::Sprite() {
       SIZE / 2.0f, -SIZE / 2.0f,  SIZE / 2.0f // 21
    };
 
-   GLuint indices [3 * 2] = {
+   GLuint indices [3 * 2] =
+   {
       0, 1, 2,
       2, 3, 0
    };
 
-   GLfloat tcs[4 * 2] = {
+   GLfloat tcs[4 * 2] =
+   {
       0.0f, 1.0f,
       1.0f, 1.0f,
       1.0f, 0.0f,

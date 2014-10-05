@@ -6,7 +6,8 @@ Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_
 //The destructor quits SDL and it's subsystems
 Game::~Game() {
    delete Shader::BASIC_RENDER;
-   for(int i = 0; i < cubes.size(); i++) {
+   for(int i = 0; i < cubes.size(); i++)
+   {
       delete cubes[i];
    }
    delete RM::TextureCache;
@@ -85,7 +86,8 @@ void Game::initSystems() {
       //Prints an error if SDL failed to initialize!
       printf("Could not initialize SDL! SDL Error: %s", SDL_GetError());
 
-   } else if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+   }
+   else if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
       //Prints an error if SDL_image failed to initialize!
       printf("SDL_image could not initialize! SDL Error: %s", IMG_GetError());
    }
@@ -96,20 +98,34 @@ void Game::loadResources(const char* data) {
    //Loads the files here
    bool textures = false;
    bool levels = false;
+   bool models = false;
    std::string fileData = FileUtils::read_file(data);
    std::string fileLine;
    for(int i = 0; i < fileData.size(); i++) {
       if(fileData[i] != '\n') {
          fileLine += fileData[i];
-      } else {
+      }
+      else
+      {
          if(fileLine == "Textures") {
+            models = false;
             textures = true;
             levels = false;
-         } else if(fileLine == "Levels") {
+         }
+         else if(fileLine == "Levels") {
+            models = false;
             textures = false;
             levels = true;
-         } else if(textures == true) {
+         }
+         else if(fileLine == "Models") {
+            models = true;
+            textures = false;
+            levels = false;
+         }
+         else if(textures == true) {
             RM::TextureCache->findTexture(fileLine);
+         } else if(models == true) {
+            RM::MeshCache->findMesh(fileLine);
          }
          fileLine = "";
       }
@@ -123,7 +139,8 @@ void Game::update() {
    player.update();
 
 
-   if(Input::mouse_grabbed()) {
+   if(Input::mouse_grabbed())
+   {
       SDL_WarpMouseInWindow(_screen.getWindow(), _screen.getWidth() / 2, _screen.getHeight() / 2);
    }
 
@@ -133,8 +150,10 @@ void Game::render() {
    _screen.clear();
 
    player.render();
-   for(int x = 0; x < cubes.size(); x++) {
-      for(int y = 0; y < cubes.size(); y++) {
+   for(int x = 0; x < cubes.size(); x++)
+   {
+      for(int y = 0; y < cubes.size(); y++)
+      {
          cubes[x]->render(glm::vec3(x, y, 0.0f));
       }
    }
