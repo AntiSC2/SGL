@@ -7,11 +7,11 @@
 #include "meshmanager.h"
 
 class RM {
-public:
-   static TextureManager *TextureCache;
-   static MeshManager *MeshCache;
-private:
-   RM() {}
+   public:
+      static TextureManager *TextureCache;
+      static MeshManager *MeshCache;
+   private:
+      RM() {}
 };
 
 

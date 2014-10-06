@@ -90,7 +90,7 @@ void Shader::unuse() {
 GLuint Shader::getUniformLocation(const char* uniformName) {
    GLuint location = glGetUniformLocation(_programID, uniformName);
    if(location == GL_INVALID_INDEX) {
-     //printf("Uniform %s was not found in shader!", uniformName);
+      //printf("Uniform %s was not found in shader!", uniformName);
    }
    return location;
 }

@@ -6,15 +6,15 @@
 #include <glm/gtc/type_ptr.hpp>
 
 class Entity {
-public:
-   Entity();
-   ~Entity();
-   glm::vec3 get_position();
-   virtual void update() = 0;
-   virtual void render() = 0;
-protected:
-   // VertexArrays *vao;
-   glm::vec3 position;
+   public:
+      Entity();
+      ~Entity();
+      glm::vec3 get_position();
+      virtual void update() = 0;
+      virtual void render() = 0;
+   protected:
+      // VertexArrays *vao;
+      glm::vec3 position;
 };
 
 #endif // ENTITY_H_INCLUDED

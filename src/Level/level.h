@@ -9,15 +9,16 @@
 #include <algorithm>
 
 class Level {
-public:
-   Level(const char* levelData);
-   void render();
-private:
-   Cube* _block;
-   int _width;
-   int _depth;
-   int _height;
-   int* _data;
+   public:
+      Level(const char* levelData);
+      void render();
+      bool collision(glm::vec3 pos);
+   private:
+      Cube* _block;
+      int _width;
+      int _depth;
+      int _height;
+      int* _data;
 };
 
 #endif // LEVEL_H_INCLUDED

@@ -14,13 +14,13 @@
 #include "Entities/player.h"
 
 class Cube {
-public:
-   Cube();
-   ~Cube();
-   void render(glm::vec3 position);
-private:
-   VertexArrays *vao;
-   Texture *TEX;
+   public:
+      Cube();
+      ~Cube();
+      void render(glm::vec3 position);
+   private:
+      VertexArrays *vao;
+      Texture *TEX;
 };
 
 #endif // CUBE_H_INCLUDED

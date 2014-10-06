@@ -1,18 +1,18 @@
 #include "level.h"
 
-Level::Level(const char* levelData){
+Level::Level(const char* levelData) {
    _width = 0;
    _depth = 0;
    _height = 1;
 
    std::string fileData = FileUtils::read_file(levelData);
    char fileLine;
-   for(int l = 0; l < fileData.size(); l++){
+   for(int l = 0; l < fileData.size(); l++) {
       fileLine = fileData[l];
-      if(fileLine == '\n'){
+      if(fileLine == '\n') {
          _depth++;
       }
-      if(_depth == 0){
+      if(_depth == 0) {
          _width++;
       }
    }
@@ -21,9 +21,9 @@ Level::Level(const char* levelData){
 
    _data = new int[_width * _depth * _height];
 
-   for(int l = 0; l < _width * _height * _depth; l++){
+   for(int l = 0; l < _width * _height * _depth; l++) {
       fileLine = fileData[l];
-      if(fileLine == '1'){
+      if(fileLine == '1') {
          _data[l] = 1;
          //printf("%d", _data[l]);
       } else if(fileLine == '0') {
@@ -38,13 +38,20 @@ Level::Level(const char* levelData){
    _block = new Cube;
 }
 
-void Level::render(){
-   for(int x = 0; x < _width; x++){
-      for(int y = 0; y < _depth; y++){
-         for(int z = 0; z < _height; z++){
+void Level::render() {
+   for(int x = 0; x < _width; x++) {
+      for(int y = 0; y < _depth; y++) {
+         for(int z = 0; z < _height; z++) {
             if(_data[x + (y * _width) + (z * _width * _depth)] == 1)
-               _block->render(glm::vec3(x + 1, y + 1, z));
+               _block->render(glm::vec3(x + 1 + 0.5f, y + 1 + 0.5f, z + 0.5f));
          }
       }
    }
+}
+
+bool Level::collision(glm::vec3 pos){
+   int x = -nearbyint(pos.x);
+   int y = -nearbyint(pos.x);
+   int z = -nearbyint(pos.x);
+   return true;
 }

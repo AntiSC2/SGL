@@ -7,14 +7,14 @@
 
 class MeshManager
 {
-public:
-   MeshManager();
-   ~MeshManager();
-   VertexArrays* findMesh(std::string fileName);
-   void removeMesh(std::string fileName);
-private:
-   VertexArrays* addMesh(std::string fileName);
-   std::map<std::string, VertexArrays*> meshes;
+   public:
+      MeshManager();
+      ~MeshManager();
+      VertexArrays* findMesh(std::string fileName);
+      void removeMesh(std::string fileName);
+   private:
+      VertexArrays* addMesh(std::string fileName);
+      std::map<std::string, VertexArrays*> meshes;
 };
 
 #endif // MESHMANAGER_H_INCLUDED

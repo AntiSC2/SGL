@@ -6,16 +6,16 @@
 #include "Utils/Math3D.h"
 
 class Player : public Entity {
-public:
-   Player(glm::vec3 position);
+   public:
+      Player(glm::vec3 position);
 
-   void update();
-   void render();
-private:
-   glm::vec3 rotation;
-   float mouse_sensitivity = 0.2f;
-   float speed = 0.05;
-   float fallingSpeed;
+      void update();
+      void render();
+   private:
+      glm::vec3 rotation;
+      float mouse_sensitivity = 0.2f;
+      float speed = 0.08;
+      float fallingSpeed;
 };
 
 #endif // PLAYER_H_INCLUDED
