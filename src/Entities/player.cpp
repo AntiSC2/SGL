@@ -45,6 +45,16 @@ void Player::update() {
    if (Input::key_pressed(SDL_SCANCODE_K)) {
       position.z += 0.05f;
    }
+   if (Input::key_pressed(SDL_SCANCODE_R)){
+      position.z = -2.0f;
+      position.x = -5.0f;
+      position.y = -5.0f;
+   }
+   if (Input::key_pressed(SDL_SCANCODE_SPACE)){
+      if(Math::precise(position.z, 2.0f)){
+         fallingSpeed = -0.2;
+      }
+   }
    if (Input::mouse_grabbed()) {
       rotation.x -= Input::get_DY() * mouse_sensitivity;
       rotation.y -= Input::get_DX() * mouse_sensitivity;
@@ -52,11 +62,13 @@ void Player::update() {
    if (rotation.x < -175.0f) rotation.x = -175.0f;
    if (rotation.x >  -5.0f) rotation.x =  -5.0f;
 
-   if((position.x > -1 || position.x < -17) || (position.y > -1 || position.y < -17) || (position.z > -0.5)){
-      fallingSpeed += 0.000982f;
-   } else {
+   if((position.x > -0.1 || position.x < -16.9) || (position.y > -0.1 || position.y < -16.9) || (position.z > -0.5)){
+      fallingSpeed += 0.00982f;
+   } else if(position.z > -2.0f){
       fallingSpeed = 0;
       position.z = -2.0f;
+   } else if(position.z < -2.0f){
+      fallingSpeed += 0.00982f;
    }
    position.z += fallingSpeed;
 }

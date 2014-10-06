@@ -16,6 +16,7 @@
 #include "Entities/player.h"
 #include "Managers/resourcemanager.h"
 #include "Utils/fileutil.h"
+#include "Level/level.h"
 #include <vector>
 
 
@@ -25,7 +26,7 @@
 class Game {
 public:
    ///Constructor for game and screen class and simple destructor
-   Game(const char* title, int win_w, int win_h);
+   Game(const char* title, int win_w, int win_h, const char* levelData);
    ~Game();
    ///Contains the gameloop and calls the other functions during runtime.
    void run();
@@ -42,7 +43,7 @@ private:
    void initShaders();
    //The window is handled by it's own class
    Screen _screen;
-   std::vector<Cube*> cubes;
+   Level level;
    Input input;
    Player player;
 };

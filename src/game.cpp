@@ -1,16 +1,13 @@
 #include "game.h"
 //The constructor passes the data to the screen
-Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(5.0f, 5.0f, 2.0f)) {
+Game::Game(const char* title, int win_w, int win_h, const char* levelData) : _screen(title, win_w, win_h), player(glm::vec3(5.0f, 5.0f, 2.0f)), level(levelData) {
 
 }
 //The destructor quits SDL and it's subsystems
 Game::~Game() {
    delete Shader::BASIC_RENDER;
-   for(int i = 0; i < cubes.size(); i++)
-   {
-      delete cubes[i];
-   }
    delete RM::TextureCache;
+   delete RM::MeshCache;
    IMG_Quit();
    SDL_Quit();
    // NOTE (Anti#9#): Remember to free the memory from the managers later ...
@@ -20,22 +17,6 @@ Game::~Game() {
 //Handles the game
 void Game::run() {
    initShaders();
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
-   cubes.push_back(new Cube);
 
    //How much to delay the update function in milliseconds, 16 milliseconds ~ 60 updates per second
    const double dt = 16.66666666666;
@@ -150,13 +131,7 @@ void Game::render() {
    _screen.clear();
 
    player.render();
-   for(int x = 0; x < cubes.size(); x++)
-   {
-      for(int y = 0; y < cubes.size(); y++)
-      {
-         cubes[x]->render(glm::vec3(x * 1.0 + 1, y * 1.0 + 1, 0.0f));
-      }
-   }
+   level.render();
 
    _screen.update();
 }

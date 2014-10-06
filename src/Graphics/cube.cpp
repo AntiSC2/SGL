@@ -1,7 +1,6 @@
 #include "cube.h"
 
 Cube::Cube() {
-
    vao = RM::MeshCache->findMesh("resources/models/Cube.obj");
    TEX = RM::TextureCache->findTexture("resources/textures/tex.png");
 }
