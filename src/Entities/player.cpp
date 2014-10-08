@@ -14,7 +14,7 @@ void Player::render() {
    Shader::BASIC_RENDER->setCameraPos(position);
 }
 
-void Player::update() {
+void Player::update(Level *level) {
    if (Input::key_pressed(SDL_SCANCODE_W)) {
       float xa = cos(Math::to_radians(rotation.y + 90.0f)) * speed;
       float ya = -sin(Math::to_radians(rotation.y + 90.0f)) * speed;
@@ -63,12 +63,16 @@ void Player::update() {
    if (rotation.x < -175.0f) rotation.x = -175.0f;
    if (rotation.x >  -5.0f) rotation.x =  -5.0f;
 
-   if((position.x > -0.1 || position.x < -16.9) || (position.y > -0.1 || position.y < -16.9) || (position.z > -0.5)) {
+   /*if((position.x > -0.1 || position.x < -16.9) || (position.y > -0.1 || position.y < -16.9) || (position.z > -0.5)) {
       fallingSpeed += 0.00982f;
    } else if(position.z > -2.0f) {
       fallingSpeed = 0;
       position.z = -2.0f;
    } else if(position.z < -2.0f) {
+      fallingSpeed += 0.00982f;
+   }*/
+   if(!(level->raycast_collision(position, vec3()))){
+      printf("%i", level->raycast_collision(position, rotation));
       fallingSpeed += 0.00982f;
    }
    position.z += fallingSpeed;

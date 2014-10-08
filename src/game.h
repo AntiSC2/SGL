@@ -26,7 +26,7 @@
 class Game {
    public:
       ///Constructor for game and screen class and simple destructor
-      Game(const char* title, int win_w, int win_h, const char* levelData);
+      Game(const char* title, int win_w, int win_h);
       ~Game();
       ///Contains the gameloop and calls the other functions during runtime.
       void run();
@@ -43,7 +43,7 @@ class Game {
       void initShaders();
       //The window is handled by it's own class
       Screen _screen;
-      Level level;
+      static Level *level;
       Input input;
       Player player;
 };

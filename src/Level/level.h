@@ -12,13 +12,15 @@ class Level {
    public:
       Level(const char* levelData);
       void render();
-      bool collision(glm::vec3 pos);
+      unsigned short& raycast_collision(glm::vec3 position, glm::vec3 rotation);
+      unsigned short& get_block(glm::vec3 position);
    private:
       Cube* _block;
       int _width;
       int _depth;
+      unsigned short _NULL_SHORT;
       int _height;
-      int* _data;
+      unsigned short* _data;
 };
 
 #endif // LEVEL_H_INCLUDED

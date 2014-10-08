@@ -4,12 +4,13 @@
 #include "Graphics/shader.h"
 #include "input.h"
 #include "Utils/Math3D.h"
+//#include "Level/level.h"
 
 class Player : public Entity {
    public:
       Player(glm::vec3 position);
 
-      void update();
+      void update(Level *level);
       void render();
    private:
       glm::vec3 rotation;

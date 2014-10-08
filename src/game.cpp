@@ -1,6 +1,8 @@
 #include "game.h"
+
+Level* Game::level = nullptr;
 //The constructor passes the data to the screen
-Game::Game(const char* title, int win_w, int win_h, const char* levelData) : _screen(title, win_w, win_h), player(glm::vec3(5.0f, 5.0f, 2.0f)), level(levelData) {
+Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(5.0f, 5.0f, 2.0f)) {
 
 }
 //The destructor quits SDL and it's subsystems
@@ -107,6 +109,8 @@ void Game::loadResources(const char* data) {
             RM::TextureCache->findTexture(fileLine);
          } else if(models == true) {
             RM::MeshCache->findMesh(fileLine);
+         } else if(levels == true){
+            level = new Level(fileLine.c_str());
          }
          fileLine = "";
       }
@@ -117,7 +121,7 @@ void Game::loadResources(const char* data) {
 //Updates the position of things
 void Game::update() {
    input.update();
-   player.update();
+   player.update(level);
 
 
    if(Input::mouse_grabbed())
@@ -131,7 +135,7 @@ void Game::render() {
    _screen.clear();
 
    player.render();
-   level.render();
+   level->render();
 
    _screen.update();
 }

@@ -4,6 +4,7 @@ Level::Level(const char* levelData) {
    _width = 0;
    _depth = 0;
    _height = 1;
+   _NULL_SHORT = 0;
 
    std::string fileData = FileUtils::read_file(levelData);
    char fileLine;
@@ -19,7 +20,7 @@ Level::Level(const char* levelData) {
 
    fileData.erase(std::remove(fileData.begin(), fileData.end(), '\n'), fileData.end());
 
-   _data = new int[_width * _depth * _height];
+   _data = new unsigned short[_width * _depth * _height];
 
    for(int l = 0; l < _width * _height * _depth; l++) {
       fileLine = fileData[l];
@@ -49,9 +50,25 @@ void Level::render() {
    }
 }
 
-bool Level::collision(glm::vec3 pos){
-   int x = -nearbyint(pos.x);
-   int y = -nearbyint(pos.x);
-   int z = -nearbyint(pos.x);
-   return true;
+
+unsigned short& Level::get_block(glm::vec3 position) {
+    position /= 1.0f;
+    if (position.x < 0 || position.y < 0 || position.z < 0) return _NULL_SHORT;
+    if (position.x >= _width || position.y >= _depth || position.z >= _height) return _NULL_SHORT;
+    return _data[(short) position.x + ((short) position.y * _width) + ((short) position.z * _width * _depth)];
+
+}
+
+unsigned short& Level::raycast_collision(glm::vec3 position, glm::vec3 rotation) {
+    position = -position;
+    const float MAX_DISTANCE = 2.0f;
+    const float ITERATION = 0.5f;
+    float distance = 0.0f;
+    while (distance < MAX_DISTANCE) {
+        position += rotation * ITERATION;
+        unsigned short &result = get_block(position);
+        if (result == 1 && result != _NULL_SHORT) return result;
+        distance += ITERATION;
+    }
+    return _NULL_SHORT;
 }
