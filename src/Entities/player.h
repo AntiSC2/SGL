@@ -16,6 +16,8 @@ class Player : public Entity {
       glm::vec3 rotation;
       float mouse_sensitivity = 0.2f;
       float speed = 0.08;
+      bool jumping;
+      float jumpingHeight;
       float fallingSpeed;
 };
 

@@ -4,6 +4,8 @@ Player::Player(glm::vec3 position) {
    this->position.x = - position.x;
    this->position.y = - position.y;
    this->position.z = - position.z;
+   jumping = false;
+   jumpingHeight = 2.0f;
 }
 
 void Player::render() {
@@ -52,8 +54,8 @@ void Player::update(Level *level) {
    }
    if (Input::key_pressed(SDL_SCANCODE_SPACE)) {
       if(Math::precise(-position.z, 2.0f) && Math::precise(fallingSpeed, 0.0f)) {
-         printf("%f\n", position.z);
-         fallingSpeed = -0.2;
+         //printf("%f\n", position.z);
+         jumping = true;
       }
    }
    if (Input::mouse_grabbed()) {
@@ -71,9 +73,18 @@ void Player::update(Level *level) {
    } else if(position.z < -2.0f) {
       fallingSpeed += 0.00982f;
    }*/
-   if(!(level->raycast_collision(position, vec3()))){
-      printf("%i", level->raycast_collision(position, rotation));
+   if(level->raycast_collision(position, glm::vec3(0, 0, -1)) == 0 && jumping == false){
+      printf("%i", level->raycast_collision(position, glm::vec3(0, 0, -1)));
       fallingSpeed += 0.00982f;
+   } else if(jumping == false){
+      fallingSpeed = 0;
+      position.z = -2.0f;
+   } else if(jumping == true){
+      if(fallingSpeed < jumpingHeight){
+         fallingSpeed += 0.00982f;
+      } else {
+         jumping = false;
+      }
    }
    position.z += fallingSpeed;
 
