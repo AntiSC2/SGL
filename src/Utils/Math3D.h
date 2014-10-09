@@ -16,6 +16,9 @@ class Math {
          }
          return false;
       }
+      static int round(float a){
+         return floor(a + 0.5);
+      }
 };
 
 #endif // MATH3D_H_INCLUDED

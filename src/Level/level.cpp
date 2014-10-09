@@ -5,13 +5,22 @@ Level::Level(const char* levelData) {
    _depth = 0;
    _height = 1;
    _NULL_SHORT = 0;
+   _maxZlevel = 20;
+
 
    std::string fileData = FileUtils::read_file(levelData);
    char fileLine;
    for(int l = 0; l < fileData.size(); l++) {
       fileLine = fileData[l];
       if(fileLine == '\n') {
-         _depth++;
+         if(l != fileData.size() - 1){
+            if(_height == 1 && fileData[l + 1] != '\n'){
+                _depth++;
+            } else if(fileLine == '\n' && fileData[l + 1] == '\n') {
+                _height++;
+            }
+         }
+
       }
       if(_depth == 0) {
          _width++;
@@ -59,7 +68,7 @@ unsigned short& Level::get_block(glm::vec3 position) {
 
 }
 
-unsigned short& Level::raycast_collision(glm::vec3 position, glm::vec3 rotation) {
+unsigned short& Level::raycast_collision(glm::vec3 position, glm::vec3 rotation, bool returnZ) {
     position = -position;
     const float MAX_DISTANCE = 2.0f;
     const float ITERATION = 0.5f;
@@ -67,8 +76,31 @@ unsigned short& Level::raycast_collision(glm::vec3 position, glm::vec3 rotation)
     while (distance < MAX_DISTANCE) {
         position += rotation * ITERATION;
         unsigned short &result = get_block(position);
-        if (result == 1 && result != _NULL_SHORT) return result;
+        if (result == 1 && result != _NULL_SHORT && returnZ == false)
+           return result;
+        else if(result == 1 && returnZ == true)
+           return (unsigned short&)position.z;
+        else if(result == 0 && returnZ == true)
+           return _maxZlevel;
         distance += ITERATION;
     }
     return _NULL_SHORT;
 }
+
+float Level::raycast_actualZ(glm::vec3 position, glm::vec3 rotation) {
+    position = -position;
+    const float MAX_DISTANCE = 100.0f;
+    const float ITERATION = 1.0f;
+    float distance = 0.0f;
+    while (distance < MAX_DISTANCE) {
+        position += rotation * ITERATION;
+        unsigned short &result = get_block(position);
+        if(result == 1)
+           return position.z;
+        else if(result == 0)
+           return _maxZlevel;
+        distance += ITERATION;
+    }
+    return (float)_NULL_SHORT;
+}
+

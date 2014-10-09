@@ -2,7 +2,7 @@
 
 Level* Game::level = nullptr;
 //The constructor passes the data to the screen
-Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(5.0f, 5.0f, 2.0f)) {
+Game::Game(const char* title, int win_w, int win_h) : _screen(title, win_w, win_h), player(glm::vec3(5.0f, 5.0f, 3.0f)) {
 
 }
 //The destructor quits SDL and it's subsystems

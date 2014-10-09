@@ -4,6 +4,7 @@
 #include "Graphics/shader.h"
 #include "input.h"
 #include "Utils/Math3D.h"
+
 //#include "Level/level.h"
 
 class Player : public Entity {
@@ -16,6 +17,7 @@ class Player : public Entity {
       glm::vec3 rotation;
       float mouse_sensitivity = 0.2f;
       float speed = 0.08;
+      int _actualZ;
       bool jumping;
       float jumpingHeight;
       float fallingSpeed;

@@ -12,8 +12,9 @@ class Level {
    public:
       Level(const char* levelData);
       void render();
-      unsigned short& raycast_collision(glm::vec3 position, glm::vec3 rotation);
+      unsigned short& raycast_collision(glm::vec3 position, glm::vec3 rotation, bool returnZ = false);
       unsigned short& get_block(glm::vec3 position);
+      float raycast_actualZ(glm::vec3 position, glm::vec3 rotation);
    private:
       Cube* _block;
       int _width;
@@ -21,6 +22,7 @@ class Level {
       unsigned short _NULL_SHORT;
       int _height;
       unsigned short* _data;
+      unsigned short _maxZlevel;
 };
 
 #endif // LEVEL_H_INCLUDED
