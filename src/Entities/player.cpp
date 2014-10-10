@@ -6,7 +6,7 @@ Player::Player(glm::vec3 position) {
    this->position.z = - position.z;
    jumping = false;
    jumpingHeight = -0.125f;
-   _actualZ = std::round position.z + 2.0;
+   _actualZ = Math::round(position.z + 2.0);
 }
 
 void Player::render() {
@@ -54,12 +54,7 @@ void Player::update(Level *level) {
       fallingSpeed = 0;
       position.y = -5.0f;
    }
-   if (Input::key_pressed(SDL_SCANCODE_SPACE)) {
-      if(Math::precise(-position.z, 2.0f) && Math::precise(fallingSpeed, 0.0f)) {
-         //printf("%f\n", position.z);
-         jumping = true;
-      }
-   }
+
    if (Input::mouse_grabbed()) {
       rotation.x -= Input::get_DY() * mouse_sensitivity;
       rotation.y -= Input::get_DX() * mouse_sensitivity;
@@ -76,15 +71,34 @@ void Player::update(Level *level) {
       fallingSpeed += 0.00982f;
    }*/
    _actualZ = level->raycast_actualZ(position, glm::vec3(0, 0, -1));
-   printf("Actual Z:%f\n", _actualZ);
+
    unsigned short collision = level->raycast_collision(position, glm::vec3(0, 0, -1), false);
 
-   if(position.z < _actualZ - 2.0f){
+   if (Input::key_pressed(SDL_SCANCODE_SPACE)) {
+      if(collision = 1 && fallingSpeed <= 0) {
+         //printf("%f\n", position.z);
+         jumping = true;
+      }
+   }
+
+   if(jumping == true && fallingSpeed > jumpingHeight){
+      fallingSpeed -= 0.009428;
+      if(fallingSpeed < jumpingHeight){
+         jumping = false;
+      }
+   }
+
+   if(collision == 0 && jumping == false){
       fallingSpeed += 0.009428;
-   } else {
-      position.z = _actualZ - 2.0f;
+   } else if(jumping == false){
       fallingSpeed = 0;
    }
+
+   if(fallingSpeed > 4)
+      fallingSpeed = 4.0f;
+   else if(fallingSpeed < -4.0f)
+      fallingSpeed = -4.0f;
+
    position.z += fallingSpeed;
    if(Math::precise(fallingSpeed, 0)){
       jumping = false;

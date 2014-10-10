@@ -60,11 +60,14 @@ void Level::render() {
 }
 
 
-unsigned short& Level::get_block(glm::vec3 position) {
+unsigned short& Level::get_block(glm::vec3 position, bool returnZ) {
     position /= 1.0f;
     if (position.x < 0 || position.y < 0 || position.z < 0) return _NULL_SHORT;
     if (position.x >= _width || position.y >= _depth || position.z >= _height) return _NULL_SHORT;
-    return _data[(short) position.x + ((short) position.y * _width) + ((short) position.z * _width * _depth)];
+    if (returnZ == false)
+       return _data[(short) position.x + ((short) position.y * _width) + ((short) position.z * _width * _depth)];
+    else
+       return (unsigned short&) position.z;
 
 }
 
@@ -89,15 +92,15 @@ unsigned short& Level::raycast_collision(glm::vec3 position, glm::vec3 rotation,
 
 float Level::raycast_actualZ(glm::vec3 position, glm::vec3 rotation) {
     position = -position;
-    const float MAX_DISTANCE = 100.0f;
+    const float MAX_DISTANCE = 2.0f;
     const float ITERATION = 1.0f;
     float distance = 0.0f;
     while (distance < MAX_DISTANCE) {
         position += rotation * ITERATION;
-        unsigned short &result = get_block(position);
-        if(result == 1)
-           return position.z;
-        else if(result == 0)
+        unsigned short &result = get_block(position, true);
+        if(result > 0)
+           return (float)result;
+        else
            return _maxZlevel;
         distance += ITERATION;
     }
